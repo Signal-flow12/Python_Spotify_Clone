@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% comment %} for head title tags and helping us with SEO {% endcomment %}
+{% block title %}Artist{% endblock  %}
+
+{% block content %}
+{% for song in songs %}
+<h1>{{song.title}}</h1>
+{% empty %}
+<p>No songs Available</p>
+{% endfor %}
+{% endblock %}
