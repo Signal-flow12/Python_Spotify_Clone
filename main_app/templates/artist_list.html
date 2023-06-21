@@ -7,12 +7,25 @@
 
 <h1 class="title pt-5">Trending Artists</h1>
 <div class="gallery">
+  <form class="mb-5" method="get">
+    <div class="field has-addons">
+      <div class="control">
+        <!--  Our input will search by name of artist  -->
+        <input class="input" type="text" name="name" placeholder="name" />
+      </div>
+      <div class="control">
+        <input class="button is-success" type="submit" value="Search" />
+      </div>
+    </div>
+    <!--  This anchor tag will redirect back to artist list without a query param -->
+    <a class="button is-dark" href="{% url 'artist_list' %}">Clear Search</a>
+  </form>
   {% for artist in artists %}
   <a href="">
     <div class="card">
       <div class="card-image">
         <figure class="image is-square">
-          <img src="{{artist.image}}" alt="{{artist.name}}" />
+          <img src="{{artist.img}}" alt="{{artist.name}}" />
         </figure>
       </div>
       <div class="card-header">
