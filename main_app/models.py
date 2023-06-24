@@ -14,3 +14,12 @@ class Artist(models.Model):
 
     class Meta:
         ordering = ['name']
+
+class Song (models.Model):
+    title = models.CharField(max_length=150)
+    length = models.IntegerField(default=0)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name="songs")
+
+    def __str__(self):
+        return self.title
+    

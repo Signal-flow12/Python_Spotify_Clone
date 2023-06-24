@@ -11,6 +11,7 @@
         <script src="{% static 'scripts/main.js' %}" defer></script>
         <link rel="stylesheet"
               href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
                 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
                 crossorigin="anonymous"></script>
@@ -42,9 +43,13 @@
             <div class="navbar-menu navbar-end">
                 <a class="navbar-item" href="/songs">Songs</a>
             </div>
+            <div class="navbar-menu navbar-end">
+                <a class="navbar-item" href="{% url 'artist_create' %}">Create Artist</a>
+            </div>
         </nav>
         <div class="container">
             {% block content %}{% endblock %}
         </div>
     </body>
 </html>
+

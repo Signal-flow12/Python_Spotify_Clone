@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from.models import Artist
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView
+from django.views.generic import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # Create your views here.
 class Home(TemplateView):
@@ -27,6 +30,13 @@ songs = [
     Song("Do it for the stunt", "No clue album")
 ]
 
+class ArtistCreate(CreateView):
+    model = Artist
+    fields = ['name', 'img', 'bio', 'verified_artist']
+    template_name = "artist_create.html"
+    success_url = "/artists/"
+
+
 class ArtistList(TemplateView):
     template_name = "artist_list.html"
 
@@ -41,3 +51,18 @@ class ArtistList(TemplateView):
         else:
             context["artists"] = Artist.objects.all()
         return context
+
+class ArtistDetail(DetailView):
+    model = Artist
+    template_name = "artist_detail.html"
+
+class ArtistUpdate(UpdateView):
+    model = Artist
+    fields = ['name', 'img', 'bio', 'verified_artist']
+    template_name = "artist_update.html"
+    success_url = "/artists/"
+
+class ArtistDelete(DeleteView):
+    model = Artist
+    template_name = "artist_delete.html"
+    success_url = "/artists/"
