@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from.models import Artist
+from django.shortcuts import render, redirect
+from django.views import View
+from.models import Artist, Song
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
 from django.views.generic import DetailView
@@ -20,15 +21,15 @@ class SongList(TemplateView):
         context["songs"] = songs # this is where we add the key into our context object for the view to use
         return context
 
-class Song:
-    def __init__(self, title, album):
-        self.title = title
-        self.album = album
+# class Song:
+#     def __init__(self, title, album):
+#         self.title = title
+#         self.album = album
 
-songs = [
-    Song("Lost", "stressed and depressed"),
-    Song("Do it for the stunt", "No clue album")
-]
+# songs = [
+#     Song("Lost", "stressed and depressed"),
+#     Song("Do it for the stunt", "No clue album")
+# ]
 
 class ArtistCreate(CreateView):
     model = Artist
@@ -66,3 +67,12 @@ class ArtistDelete(DeleteView):
     model = Artist
     template_name = "artist_delete.html"
     success_url = "/artists/"
+
+class SongCreate(View):
+
+    def post(self, request, pk):
+        title = request.POST.get("title")
+        length = request.POST.get("length")
+        artist = Artist.objects.get(pk=pk)
+        Song.objects.create(title=title, length=length, artist=artist)
+        return redirect('artist_detail', pk=pk)

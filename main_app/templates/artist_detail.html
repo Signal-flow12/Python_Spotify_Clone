@@ -14,24 +14,58 @@
     {% endif %}
     <h1 class="title">{{artist.name}}</h1>
 </div>
-<div class="detail__songs mb-5">
-    <h3 class="title is-3">Songs</h3>
-
-    {% for song in artist.songs.all %}
-    <div class="song">
-        <span>{{forloop.counter}}</span>
-        <span>{{song.title}}</span>
-        <span>{{song.length}}</span>
-    </div>
-    {% empty %}
-    <article class="message">
-        <div class=""message-header>
-            <p>No Songs Available</p>
-        </div>
-    </article>
-    {% endfor %}
-</div>
 <div class="detail__container">
+    <!-- inside detail songs element below the header -->
+
+<!-- Here you can see the action we provided
+    is to the song_create route with the artist pk -->
+    <form class="mb-5" action="{% url 'song_create' artist.pk %}" method="post">
+        {% csrf_token %}
+        <div class="field has-addons">
+            <div class="control">
+                <input
+                    class="input"
+                    type="text"
+                    name="title"
+                    placeholder="Title"
+                    required
+                />
+            </div>
+            <div class="control">
+                <input
+                    class="input"
+                    type="number"
+                    name="length"
+                    placeholder="Length in Seconds"
+                    min="1"
+                    required
+                />
+            </div>
+            <div class="control">
+                <input class="button is-primary" type="submit" value="Add Song" />
+            </div>
+        </div>
+    </form>
+    
+    <!-- before the for loop for songs -->
+
+    <div class="detail__songs mb-5">
+        <h3 class="title is-3">Songs</h3>
+    
+        {% for song in artist.songs.all %}
+        <div class="song">
+            <span>{{forloop.counter}}</span>
+            <span>{{song.title}}</span>
+            <span>{{song.get_length}}</span>
+        </div>
+        {% empty %}
+        <article class="message">
+            <div class=""message-header>
+                <p>No Songs Available</p>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
     <div class="buttons">
         <a href="{% url 'artist_update' artist.pk %}" class="button is-info">
             <span class="icon">
@@ -49,5 +83,6 @@
         <p>{{artist.bio}}</p>
     </div>
 </div>
+
 
 {% endblock %}
