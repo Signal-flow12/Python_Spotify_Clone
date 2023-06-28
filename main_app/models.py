@@ -27,3 +27,12 @@ class Song (models.Model):
     def get_length(self):
         return time.strftime("%M:%S", time.gmtime(self.length))
     
+
+
+class Playlist(models.Model):
+    title = models.CharField(max_length=150)
+    # this is going to create the many to many relationship and join table
+    songs = models.ManyToManyField(Song)
+
+    def __str__(self):
+        return self.title
